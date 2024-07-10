@@ -54,9 +54,9 @@ npm run dev
 
 ![Shared page](./screenshots/TaskShare-2.png "Shared page")
 
-![Task view](./screenshots/TaskShare-5.png "Task view")
+![Task view](./screenshots/TaskShare-3.png "Task view")
 
-![Shared with modal](./screenshots/TaskShare-3.png "Shared with modal")
+![Shared with modal](./screenshots/TaskShare-4.png "Shared with modal")
 
-![Logout modal](./screenshots/TaskShare-4.png "Logout modal")
+![Logout modal](./screenshots/TaskShare-5.png "Logout modal")
 
