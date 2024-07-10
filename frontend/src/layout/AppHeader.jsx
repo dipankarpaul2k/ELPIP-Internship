@@ -1,12 +1,13 @@
-import { UnstyledButton, Modal, Text, Group, Button } from "@mantine/core";
+import { UnstyledButton } from "@mantine/core";
 import classes from "./Layout.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import { useDisclosure } from "@mantine/hooks";
 
 import { authSelector, clearUser } from "../features/auth/authSlice";
 import { logout } from "../api/authApi";
-import { useDisclosure } from "@mantine/hooks";
+import LogoutModal from "../components/Modals/LogoutModal";
 
 export default function AppHeader() {
   const [opened, { open, close }] = useDisclosure(false);
@@ -27,6 +28,7 @@ export default function AppHeader() {
     <>
       {!auth.isAuthenticated ? (
         <>
+          {/* Login */}
           <UnstyledButton
             component={Link}
             to="/login"
@@ -36,6 +38,7 @@ export default function AppHeader() {
           >
             Login
           </UnstyledButton>
+          {/* Register */}
           <UnstyledButton
             component={Link}
             to="/register"
@@ -48,6 +51,7 @@ export default function AppHeader() {
         </>
       ) : (
         <>
+          {/* Home */}
           <UnstyledButton
             component={Link}
             to="/"
@@ -57,6 +61,7 @@ export default function AppHeader() {
           >
             Home
           </UnstyledButton>
+          {/* Shared */}
           <UnstyledButton
             component={Link}
             to="/shared"
@@ -66,7 +71,7 @@ export default function AppHeader() {
           >
             Shared
           </UnstyledButton>
-          {/* Logout Button */}
+          {/* Logout */}
           <UnstyledButton
             onClick={open}
             className={`${classes.control} ${classes.logout}`}
@@ -77,23 +82,11 @@ export default function AppHeader() {
             Logout
           </UnstyledButton>
           {/* Logout Modal */}
-          <Modal
-            opened={opened}
+          <LogoutModal
+            isOpened={opened}
             onClose={close}
-            size="auto"
-            withCloseButton={false}
-            centered
-          >
-            <Text>Are you sure you want to logout?</Text>
-            <Group mt={"sm"}>
-              <Button flex={1} onClick={close}>
-                Cancel
-              </Button>
-              <Button flex={1} onClick={handleLogout} color={"red"}>
-                Logout
-              </Button>
-            </Group>
-          </Modal>
+            onLogout={handleLogout}
+          />
         </>
       )}
     </>
