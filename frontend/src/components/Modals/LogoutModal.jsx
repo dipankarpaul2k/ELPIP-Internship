@@ -6,17 +6,17 @@ export default function LogoutModal({ isOpened, onClose, onLogout }) {
       <Modal
         opened={isOpened}
         onClose={onClose}
-        size="auto"
-        withCloseButton={false}
         centered
+        size="auto"
+        title={<Text fw={500} fz={"h4"}>Logout</Text>}
       >
-        <Text>Are you sure you want to logout?</Text>
+        <Text fw={500}>Are you sure you want to logout?</Text>
         <Group mt={"sm"}>
           <Button flex={1} onClick={onClose}>
-            Cancel
+            No
           </Button>
           <Button flex={1} onClick={onLogout} color={"red"}>
-            Logout
+            Yes
           </Button>
         </Group>
       </Modal>

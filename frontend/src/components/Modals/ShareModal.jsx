@@ -1,8 +1,14 @@
-import { Button, Flex, Modal, MultiSelect } from "@mantine/core";
+import { Button, Flex, Modal, MultiSelect, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { getAllUsernames } from "../../api/authApi";
 
-export default function ShareModal({ isOpened, onClose, handleShare, shareWithUsernames, setShareWithUsernames }) {
+export default function ShareModal({
+  isOpened,
+  onClose,
+  handleShare,
+  shareWithUsernames,
+  setShareWithUsernames,
+}) {
   const [usernames, setUsernames] = useState([]);
 
   useEffect(() => {
@@ -15,7 +21,16 @@ export default function ShareModal({ isOpened, onClose, handleShare, shareWithUs
 
   return (
     <>
-      <Modal opened={isOpened} onClose={onClose} title="Share Task" centered>
+      <Modal
+        opened={isOpened}
+        onClose={onClose}
+        centered
+        title={
+          <Text fw={500} fz={"h4"}>
+            Share Task
+          </Text>
+        }
+      >
         <MultiSelect
           label="Who do you want to share this task with?"
           placeholder="Search usernames"

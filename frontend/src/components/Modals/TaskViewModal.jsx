@@ -6,6 +6,7 @@ export default function TaskViewModal({ isOpened, onClose, task }) {
       <Modal
         opened={isOpened}
         onClose={onClose}
+        size={"lg"}
         centered
         title={
           <Text
