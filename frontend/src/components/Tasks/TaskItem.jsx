@@ -1,29 +1,23 @@
-import { useEffect, useState } from "react";
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Card,
-  Divider,
-  Flex,
-  Group,
-  Menu,
-  Modal,
-  MultiSelect,
-  rem,
-  Text,
-} from "@mantine/core";
+import { useState } from "react";
+import { ActionIcon, Box, Card, Group, Menu, rem, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconDots, IconEdit, IconShare, IconTrash } from "@tabler/icons-react";
+import {
+  IconCircleCheck,
+  IconDots,
+  IconEdit,
+  IconShare,
+  IconTrash,
+} from "@tabler/icons-react";
 import toast from "react-hot-toast";
-
-import { getAllUsernames } from "../../api/authApi";
-import { shareTask } from "../../api/taskApi";
-import { formatDateTime } from "../../utils/helpers";
-import { authSelector } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
 
-export default function TaskItem({ task, onDelete, onEdit }) {
+import { shareTask, toggleTaskCompletion } from "../../api/taskApi";
+import { formatDateTime } from "../../utils/helpers";
+import { authSelector } from "../../features/auth/authSlice";
+import ShareModal from "../Modals/ShareModal";
+import TaskViewModal from "../Modals/TaskViewModal";
+
+export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
   const [shareOpened, { open: shareOpen, close: shareClose }] =
     useDisclosure(false);
   const [taskOpened, { close: taskClose, open: taskOpen }] =
@@ -32,26 +26,22 @@ export default function TaskItem({ task, onDelete, onEdit }) {
   const auth = useSelector(authSelector);
   const taskOwner = auth.user._id === task.owner._id;
 
-  const [usernames, setUsernames] = useState([]);
   const [shareWithUsernames, setShareWithUsernames] = useState([]);
 
-  useEffect(() => {
-    const allUsernames = [];
-    getAllUsernames().then((users) => {
-      users.map((user) => allUsernames.push(user.username));
-    });
-    setUsernames(allUsernames);
-  }, []);
+  // Handle Toggle Task Completion State
+  const handleToggleTaskCompletion = async () => {
+    const response = await toggleTaskCompletion(task._id);
+    toast(response.msg);
+    refetchTasks();
+  };
 
+  // Handle Toggle Task Sharing
   const handleShare = async () => {
     const response = await shareTask({ taskId: task._id, shareWithUsernames });
     toast(response.msg);
     shareClose();
+    refetchTasks();
   };
-
-  // console.log("auth.user._id: " + auth.user._id);
-  // console.log("taskOwner: " + taskOwner);
-  // console.log("task: " + task);
 
   return (
     <>
@@ -60,6 +50,7 @@ export default function TaskItem({ task, onDelete, onEdit }) {
         <Card.Section withBorder inheritPadding py="xs">
           <Group justify="space-between">
             <Box>
+              {/* Task Title */}
               <Text
                 fw={{ base: 400, sm: 500 }}
                 fz={{ base: "h4", sm: "h3" }}
@@ -69,6 +60,7 @@ export default function TaskItem({ task, onDelete, onEdit }) {
               >
                 {task.title}
               </Text>
+              {/* Task Deadline */}
               <Text c={"dimmed"} size="xs">
                 Deadline: {formatDateTime(task.deadline)}
               </Text>
@@ -80,7 +72,18 @@ export default function TaskItem({ task, onDelete, onEdit }) {
                     <IconDots style={{ width: rem(16), height: rem(16) }} />
                   </ActionIcon>
                 </Menu.Target>
+                {/* Menu Dropdowm */}
                 <Menu.Dropdown>
+                  <Menu.Item
+                    leftSection={
+                      <IconCircleCheck
+                        style={{ width: rem(14), height: rem(14) }}
+                      />
+                    }
+                    onClick={handleToggleTaskCompletion}
+                  >
+                    {task.completed ? "Pending" : "Done"}
+                  </Menu.Item>
                   <Menu.Item
                     leftSection={
                       <IconShare style={{ width: rem(14), height: rem(14) }} />
@@ -111,67 +114,28 @@ export default function TaskItem({ task, onDelete, onEdit }) {
             )}
           </Group>
         </Card.Section>
+        {/* Task Description */}
         <Text
           mt={"sm"}
-          lineClamp={3}
+          lineClamp={2}
           onClick={taskOpen}
           style={{ cursor: "pointer" }}
         >
           {task.description}
         </Text>
       </Card>
+
       {/* Share Modal */}
-      <Modal
-        opened={shareOpened}
+      <ShareModal
+        isOpened={shareOpened}
         onClose={shareClose}
-        title="Share Task"
-        centered
-      >
-        <MultiSelect
-          label="Who do you want to share this task with?"
-          placeholder="Search username"
-          clearable
-          searchable
-          data={usernames}
-          value={shareWithUsernames}
-          onChange={setShareWithUsernames}
-          limit={5}
-          maxDropdownHeight={200}
-        />
-        <Flex justify={"center"} mt={"sm"}>
-          <Button onClick={handleShare}>Share</Button>
-        </Flex>
-      </Modal>
+        handleShare={handleShare}
+        shareWithUsernames={shareWithUsernames}
+        setShareWithUsernames={setShareWithUsernames}
+      />
+
       {/* Task Modal */}
-      <Modal
-        opened={taskOpened}
-        onClose={taskClose}
-        centered
-        title={
-          <Text
-            fw={{ base: 400, sm: 500 }}
-            fz={{ base: "h4", sm: "h3" }}
-            truncate="end"
-          >
-            {task.title}
-          </Text>
-        }
-      >
-        <Text my={"sm"}>{task.description}</Text>
-        <Divider my={"sm"} />
-        <Text fw={500}>Owner</Text>
-        <Text>{task?.owner?.username}</Text>
-        <Divider my={"sm"} />
-        <Text fw={500}>Shared with</Text>
-        <Group gap={5}>
-          {task?.sharedWith?.map((user, idx) => (
-            <Text key={idx}>
-              {user.username}
-              {idx < task?.sharedWith?.length - 1 ? "," : ""}
-            </Text>
-          ))}
-        </Group>
-      </Modal>
+      <TaskViewModal isOpened={taskOpened} onClose={taskClose} task={task} />
     </>
   );
 }

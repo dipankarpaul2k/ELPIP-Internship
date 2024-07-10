@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { deleteTask, getTasks, updateTask } from "../../api/taskApi";
+import {
+  deleteTask,
+  getTasks,
+  updateTask,
+} from "../../api/taskApi";
 import {
   Box,
   Container,
@@ -9,9 +13,10 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import toast from "react-hot-toast";
+
 import TaskItem from "./TaskItem";
 import TaskForm from "./TaskForm";
-import toast from "react-hot-toast";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -34,18 +39,18 @@ export default function TaskList() {
     }
   }
 
-  const handleDelete = async (id) => {
-    const response = await deleteTask(id);
+  const handleDelete = async (taskId) => {
+    const response = await deleteTask(taskId);
     toast(response.msg);
     fetchTasks();
   };
 
-  const handleEdit = (todo) => {
-    setCurrentTask(todo);
+  const handleEdit = (task) => {
+    setCurrentTask(task);
   };
 
-  const handleUpdate = async (updatedTodo) => {
-    const response = await updateTask(currentTask._id, updatedTodo);
+  const handleUpdate = async (updatedTask) => {
+    const response = await updateTask(currentTask._id, updatedTask);
     toast(response.msg);
     setCurrentTask(null);
     fetchTasks();
@@ -81,6 +86,7 @@ export default function TaskList() {
                 task={task}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
+                refetchTasks={fetchTasks} 
               />
             ))}
           </SimpleGrid>
