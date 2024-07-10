@@ -1,5 +1,4 @@
 <!-- omit in toc -->
-<!-- # TaskShare -->
 <h1 align="center">TaskShare</h1>
 
 A simple task manager application built with MERN stack.
@@ -15,7 +14,7 @@ A simple task manager application built with MERN stack.
 Run the following command to clone the repository
 
 ```bash
-git clone https://github.com/dipankarpaul2k/ELPIP-Internship.git
+git clone https://github.com/dipankarpaul2k/ELPIP-Internship-TaskShare-MERN-App.git
 ```
 
 Go to frontend and backend directory to install packages
