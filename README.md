@@ -3,7 +3,7 @@
 
 A simple task manager application built with MERN stack.
 
-![Home page](./screenshots/TaskShare-1.png "Home page")
+![Home page](./screenshots/TaskShare-6.png "Home page")
 
 - [Installation](#installation)
 - [Configuration](#configuration)
@@ -51,6 +51,8 @@ npm run dev
 ```
 
 ## Screenshots
+
+![Task page](./screenshots/TaskShare-1.png "Task page")
 
 ![Shared page](./screenshots/TaskShare-2.png "Shared page")
 

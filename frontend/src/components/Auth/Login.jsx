@@ -49,12 +49,14 @@ export default function Login() {
               type="text"
               name="username"
               size="lg"
+              defaultValue={"username2"}
             />
             <PasswordInput
               label="Password"
               placeholder="Input password"
               name="password"
               size="lg"
+              defaultValue={"12345"}
             />
             <Flex justify={"center"} mt={"sm"}>
               <Button type="submit" loading={loading} size="lg">
