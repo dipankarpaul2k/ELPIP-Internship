@@ -1,5 +1,6 @@
 <!-- omit in toc -->
 # TaskShare
+<h1 aligh="center">TaskShare</h1>
 
 A simple task manager application built with MERN stack.
 
