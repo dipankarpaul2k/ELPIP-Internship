@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  deleteTask,
-  getTasks,
-  updateTask,
-} from "../../api/taskApi";
+import { deleteTask, getTasks, updateTask } from "../../api/taskApi";
 import {
   Box,
   Container,
@@ -27,6 +23,7 @@ export default function TaskList() {
     fetchTasks();
   }, []);
 
+  // Fetch Tasks
   async function fetchTasks() {
     try {
       setLoading(true);
@@ -39,16 +36,19 @@ export default function TaskList() {
     }
   }
 
+  // Handle Task Deletion
   const handleDelete = async (taskId) => {
     const response = await deleteTask(taskId);
     toast(response.msg);
     fetchTasks();
   };
 
+  // Handle Task Editing
   const handleEdit = (task) => {
     setCurrentTask(task);
   };
 
+  // Handle Task Updates
   const handleUpdate = async (updatedTask) => {
     const response = await updateTask(currentTask._id, updatedTask);
     toast(response.msg);
@@ -86,7 +86,7 @@ export default function TaskList() {
                 task={task}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
-                refetchTasks={fetchTasks} 
+                refetchTasks={fetchTasks}
               />
             ))}
           </SimpleGrid>
