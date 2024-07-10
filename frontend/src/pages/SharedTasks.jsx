@@ -1,5 +1,13 @@
 import { useSelector } from "react-redux";
-import { Box, Center, Divider, SimpleGrid, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Center,
+  Container,
+  Divider,
+  SimpleGrid,
+  Text,
+  Title,
+} from "@mantine/core";
 import { authSelector } from "../features/auth/authSlice";
 import { useEffect, useState } from "react";
 import { getSharedTasks } from "../api/taskApi";
@@ -41,23 +49,25 @@ export default function SharedTasks() {
 
   return (
     <>
-      <Title fz={{ base: "h4", xs: "h3" }}>
+      <Title fz={{ base: "h4", xs: "h3" }} ta={"center"} mb={"sm"}>
         Task shared with {auth?.user?.username}
       </Title>
-      <Divider my="sm" />
-      {tasks.length > 0 ? (
-        <SimpleGrid cols={{ base: 1, xs: 2, md: 3 }} px={0}>
-          {tasks?.map((task) => (
-            <TaskItem key={task._id} task={task} />
-          ))}
-        </SimpleGrid>
-      ) : (
-        <>
-          <Center>
-            <Text>No task shared with you.</Text>
-          </Center>
-        </>
-      )}
+      {/* <Divider my="sm" /> */}
+      <Container p={0} size={1000}>
+        {tasks.length > 0 ? (
+          <SimpleGrid cols={{ base: 1, xs: 2, md: 3 }} px={0}>
+            {tasks?.map((task) => (
+              <TaskItem key={task._id} task={task} />
+            ))}
+          </SimpleGrid>
+        ) : (
+          <>
+            <Center>
+              <Text>No task shared with you.</Text>
+            </Center>
+          </>
+        )}
+      </Container>
     </>
   );
 }
