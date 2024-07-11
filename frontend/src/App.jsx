@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Box } from "@mantine/core";
+import { Box, Center, Loader } from "@mantine/core";
 
 import PrivatePage from "./pages/guard/PrivatePage";
 import PublicPage from "./pages/guard/PublicPage";
@@ -61,11 +61,11 @@ export default function App() {
 
   if (loading) {
     return (
-      <>
-        <Box>
-          <p>Loading...</p>
-        </Box>
-      </>
+      <Box mih={"100vh"}>
+        <Center mih={"100vh"}>
+          <Loader color="blue" size="lg" type="bars" />
+        </Center>
+      </Box>
     );
   }
 

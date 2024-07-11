@@ -1,16 +1,19 @@
-import { AppShell, Box, Burger, Group, Title } from "@mantine/core";
+import { AppShell, Box, Burger, Group, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// import classes from "./Layout.module.css";
+import { authSelector } from "../features/auth/authSlice";
 import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 
-// Outlet
-
 export default function AppLayout() {
   const [opened, { toggle }] = useDisclosure();
+  const auth = useSelector(authSelector);
+  const userName = auth?.user?.username;
+  console.log(userName);
+
   return (
     <>
       <AppShell
@@ -34,16 +37,28 @@ export default function AppLayout() {
               >
                 TaskShare
               </Title>
-              <Group ml="xl" gap={0} visibleFrom="sm">
+              <Group ml="xl" gap={5} visibleFrom="sm">
+                {userName && (
+                  <Text mr={"sm"} fw={400}>
+                    Hi {userName}
+                  </Text>
+                )}
                 <AppHeader />
               </Group>
             </Group>
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              hiddenFrom="sm"
-              size="md"
-            />
+            <Group>
+              {userName && (
+                <Text mr={"sm"} fw={400} hiddenFrom="sm">
+                  Hi {userName}
+                </Text>
+              )}
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                hiddenFrom="sm"
+                size="md"
+              />
+            </Group>
           </Group>
         </AppShell.Header>
 

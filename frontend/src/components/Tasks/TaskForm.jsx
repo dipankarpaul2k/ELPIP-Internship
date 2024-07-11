@@ -73,7 +73,7 @@ export default function TaskForm({ fetchTasks, currentTask, handleUpdate }) {
           />
           <Flex mt={"sm"} justify={"center"}>
             <Button onClick={handleTaskSubmit}>
-              {currentTask ? "Update" : "Add"} Todo
+              {currentTask ? "Update" : "Add"} Task
             </Button>
           </Flex>
         </Box>

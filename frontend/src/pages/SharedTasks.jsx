@@ -3,7 +3,7 @@ import {
   Box,
   Center,
   Container,
-  Divider,
+  Loader,
   SimpleGrid,
   Text,
   Title,
@@ -39,11 +39,11 @@ export default function SharedTasks() {
 
   if (loading) {
     return (
-      <>
-        <Box>
-          <p>Loading...</p>
-        </Box>
-      </>
+      <Box mih={"80vh"}>
+        <Center mih={"80vh"}>
+          <Loader color="blue" size="lg" type="bars" />
+        </Center>
+      </Box>
     );
   }
 

@@ -4,12 +4,13 @@ import {
   Center,
   Flex,
   PasswordInput,
+  Text,
   TextInput,
   Title,
 } from "@mantine/core";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { login } from "../../api/authApi";
@@ -38,7 +39,10 @@ export default function Login() {
     <Box mih={"70vh"}>
       <Center mih={"70vh"}>
         <Box>
-          <Title ta={"center"}>Login</Title>
+          <Box my={"sm"}>
+            <Title ta={"center"}>Log In</Title>
+            <Text ta={"center"}>Welcome Back!</Text>
+          </Box>
           <form
             style={{ width: "100%", minWidth: "400px" }}
             onSubmit={handleSubmit}
@@ -64,6 +68,20 @@ export default function Login() {
               </Button>
             </Flex>
           </form>
+          <Box my={"sm"}>
+            <Text ta={"center"}>
+              New here?{" "}
+              <Link
+                to={"/register"}
+                style={{
+                  textDecoration: "none",
+                  color: "var(--mantine-color-blue-text)",
+                }}
+              >
+                Register now
+              </Link>
+            </Text>
+          </Box>
         </Box>
       </Center>
     </Box>
