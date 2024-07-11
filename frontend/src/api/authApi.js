@@ -1,8 +1,9 @@
 import axios from "axios";
-// import Cookies from 'js-cookie';
+// Localhost: http://localhost:5000
+// Render: https://elpip-internship-taskshare-mern-app.onrender.com
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://elpip-internship-taskshare-mern-app.onrender.com/api",
   withCredentials: true,
 });
 

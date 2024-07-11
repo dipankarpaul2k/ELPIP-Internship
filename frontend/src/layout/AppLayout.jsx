@@ -20,7 +20,7 @@ export default function AppLayout() {
   const [opened, { toggle }] = useDisclosure();
   const auth = useSelector(authSelector);
   const userName = auth?.user?.username;
-  console.log(userName);
+  // console.log(userName);
 
   return (
     <>

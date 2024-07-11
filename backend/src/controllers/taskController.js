@@ -10,7 +10,7 @@ export const createTask = async (req, res) => {
       title,
       description,
       deadline,
-      owner: req.user.id, // from auth middleware
+      owner: req.user.id,
     });
 
     const task = await newTask.save();
