@@ -1,4 +1,12 @@
-import { AppShell, Box, Burger, Group, Text, Title } from "@mantine/core";
+import {
+  AppShell,
+  Box,
+  Burger,
+  Group,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -61,9 +69,10 @@ export default function AppLayout() {
             </Group>
           </Group>
         </AppShell.Header>
-
         <AppShell.Navbar py="md" px={4}>
-          <AppHeader />
+          <Stack align="stretch" justify="flex-start" gap="sm" h={"100%"} pb={"sm"}>
+            <AppHeader />
+          </Stack>
         </AppShell.Navbar>
 
         <AppShell.Main>

@@ -36,7 +36,7 @@ export default function Home() {
 
   const featuresItems = features.map((feature, idx) => {
     return (
-      <Paper shadow="sm" p="xl" key={idx}>
+      <Paper shadow="sm" p={{base: "lg", sm: "xl"}} key={idx}>
         <Title c={"blue"} fz={"h3"}>
           {feature.title}
         </Title>

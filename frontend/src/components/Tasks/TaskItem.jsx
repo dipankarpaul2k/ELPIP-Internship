@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActionIcon, Box, Card, Group, Menu, rem, Text } from "@mantine/core";
+import { ActionIcon, Box, Card, Group, Menu, rem, Text, VisuallyHidden } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconCircleCheck,
@@ -70,6 +70,7 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
                 <Menu.Target>
                   <ActionIcon variant="subtle" color="gray">
                     <IconDots style={{ width: rem(16), height: rem(16) }} />
+                    <VisuallyHidden>Task item menu</VisuallyHidden>
                   </ActionIcon>
                 </Menu.Target>
                 {/* Menu Dropdowm */}

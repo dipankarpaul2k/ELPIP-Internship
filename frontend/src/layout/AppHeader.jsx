@@ -1,5 +1,4 @@
-import { UnstyledButton } from "@mantine/core";
-import classes from "./Layout.module.css";
+import { Button } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -29,58 +28,47 @@ export default function AppHeader() {
       {!auth.isAuthenticated ? (
         <>
           {/* Login */}
-          <UnstyledButton
+          <Button
             component={Link}
             to="/login"
-            className={classes.control}
-            py={"xs"}
+            variant="subtle"
+            size="md"
             px={"md"}
           >
             Login
-          </UnstyledButton>
+          </Button>
           {/* Register */}
-          <UnstyledButton
-            component={Link}
-            to="/register"
-            className={classes.control}
-            py={"xs"}
-            px={"md"}
-          >
+          <Button component={Link} size="md" to="/register" px={"md"}>
             Register
-          </UnstyledButton>
+          </Button>
         </>
       ) : (
         <>
           {/* Home */}
-          <UnstyledButton
-            component={Link}
-            to="/"
-            className={classes.control}
-            py={"xs"}
-            px={"md"}
-          >
+          <Button component={Link} to="/" variant="subtle" size="md" px={"md"}>
             Home
-          </UnstyledButton>
+          </Button>
           {/* Shared */}
-          <UnstyledButton
+          <Button
             component={Link}
             to="/shared"
-            className={classes.control}
-            py={"xs"}
+            variant="subtle"
+            size="md"
             px={"md"}
           >
             Shared
-          </UnstyledButton>
+          </Button>
           {/* Logout */}
-          <UnstyledButton
+          <Button
             onClick={open}
-            className={`${classes.control} ${classes.logout}`}
-            py="xs"
+            variant="filled"
+            color="red"
+            size="md"
             px="md"
-            c="white"
+            mt={{ base: "auto", sm: 0 }}
           >
             Logout
-          </UnstyledButton>
+          </Button>
           {/* Logout Modal */}
           <LogoutModal
             isOpened={opened}
