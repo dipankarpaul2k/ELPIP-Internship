@@ -13,9 +13,11 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+// Localhost: http://localhost:5173
+// Render: https://taskshare-frontend.onrender.com
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://taskshare-frontend.onrender.com",
     credentials: true,
   })
 );
