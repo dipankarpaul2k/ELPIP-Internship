@@ -34,9 +34,10 @@ export default function AppHeader({ closeNav }) {
         <>
           {/* Login */}
           <Button
-            component={Link}
-            to="/login"
-            onClick={closeNav}
+            // component={Link}
+            // to="/login"
+            // onClick={closeNav}
+            onClick={() => smoothNavigation("/login")}
             variant="subtle"
             size="md"
             px={"md"}
@@ -59,9 +60,10 @@ export default function AppHeader({ closeNav }) {
         <>
           {/* Home */}
           <Button
-            component={Link}
-            to="/"
-            onClick={closeNav}
+            // component={Link}
+            // to="/"
+            // onClick={closeNav}
+            onClick={() => smoothNavigation("/")}
             variant="subtle"
             size="md"
             px={"md"}
