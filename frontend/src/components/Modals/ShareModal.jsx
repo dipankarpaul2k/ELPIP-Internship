@@ -45,6 +45,8 @@ export default function ShareModal({
             maxDropdownHeight={145}
             checkIconPosition="right"
             dropdownOpened={true}
+            flex={1}
+            comboboxProps={{ width: 408, position: 'bottom-start' }}
           />
 
           <Button onClick={handleShare}>Share</Button>
