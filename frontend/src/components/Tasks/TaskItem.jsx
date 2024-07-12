@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { ActionIcon, Box, Card, Group, Menu, rem, Text, VisuallyHidden } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Card,
+  Group,
+  Menu,
+  rem,
+  Text,
+  VisuallyHidden,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconCircleCheck,
@@ -49,7 +58,7 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section withBorder inheritPadding py="xs">
           <Group justify="space-between">
-            <Box>
+            <Box w={"70%"}>
               {/* Task Title */}
               <Text
                 fw={{ base: 400, sm: 500 }}
