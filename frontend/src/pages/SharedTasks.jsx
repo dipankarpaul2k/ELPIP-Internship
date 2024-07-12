@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   Box,
   Center,
@@ -8,14 +7,12 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { authSelector } from "../features/auth/authSlice";
 import { useEffect, useState } from "react";
+
 import { getSharedTasks } from "../api/taskApi";
 import TaskItem from "../components/Tasks/TaskItem";
 
 export default function SharedTasks() {
-  const auth = useSelector(authSelector);
-
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +47,7 @@ export default function SharedTasks() {
   return (
     <>
       <Title fz={{ base: "h4", xs: "h3" }} ta={"center"} mb={"sm"}>
-        Task shared with {auth?.user?.username}
+        Task shared with you
       </Title>
       {/* <Divider my="sm" /> */}
       <Container p={0} size={1000}>
