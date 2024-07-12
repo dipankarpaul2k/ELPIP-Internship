@@ -32,7 +32,7 @@ export default function ShareModal({
         }
       >
         <Text fw={500}>Who do you want to share this task with?</Text>
-        <Flex justify={"center"} mt={"sm"}>
+        <Flex justify={"center"} mt={"sm"} gap={"xs"}>
           <MultiSelect
             // label="Who do you want to share this task with?"
             aria-label="Who do you want to share this task with?"
@@ -44,9 +44,7 @@ export default function ShareModal({
             searchable
             maxDropdownHeight={145}
             checkIconPosition="right"
-            // dropdownOpened={true}
             flex={1}
-            // comboboxProps={{ width: 408, position: 'bottom-start' }}
           />
 
           <Button onClick={handleShare}>Share</Button>

@@ -10,9 +10,10 @@ export default function TaskViewModal({ isOpened, onClose, task }) {
         centered
         title={
           <Text
-            fw={{ base: 400, sm: 500 }}
+            fw={500}
             fz={{ base: "h4", sm: "h3" }}
-            truncate="end"
+            // truncate="end"
+            w={"70%"}
           >
             {task.title}
           </Text>
