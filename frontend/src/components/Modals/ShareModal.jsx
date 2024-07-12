@@ -39,12 +39,11 @@ export default function ShareModal({
           onChange={setShareWithUsernames}
           clearable
           searchable
-          // limit={5}
-          maxDropdownHeight={150}
+          maxDropdownHeight={145}
           checkIconPosition="right"
           dropdownOpened={true}
         />
-        <Flex justify={"center"} mt={"sm"}>
+        <Flex justify={"center"} mt={"150px"}>
           <Button onClick={handleShare}>Share</Button>
         </Flex>
       </Modal>
