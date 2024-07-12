@@ -44,20 +44,21 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        setLoading(true);
-        const response = await getCurrentUser();
-        dispatch(setUser(response));
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     getUser();
   }, []);
+
+  // Check current user state
+  const getUser = async () => {
+    try {
+      setLoading(true);
+      const response = await getCurrentUser();
+      dispatch(setUser(response));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return (
