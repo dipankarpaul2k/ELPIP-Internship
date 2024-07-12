@@ -4,6 +4,7 @@ import {
   Box,
   Card,
   Group,
+  Indicator,
   Menu,
   rem,
   Text,
@@ -52,8 +53,17 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
     refetchTasks();
   };
 
+  const indicatorLabel = task.completed ? "Done" : "Pending";
+  const indicatorLabelColor = task.completed ? "green" : "red";
+
   return (
-    <>
+    <Indicator
+      size={12}
+      withBorder
+      position="top-start"
+      label={indicatorLabel}
+      color={indicatorLabelColor}
+    >
       {/* Task card */}
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section withBorder inheritPadding py="xs">
@@ -61,7 +71,7 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
             <Box w={"70%"}>
               {/* Task Title */}
               <Text
-                fw={{ base: 400, sm: 500 }}
+                fw={500}
                 fz={{ base: "h4", sm: "h3" }}
                 truncate="end"
                 onClick={taskOpen}
@@ -146,6 +156,6 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
 
       {/* Task Modal */}
       <TaskViewModal isOpened={taskOpened} onClose={taskClose} task={task} />
-    </>
+    </Indicator>
   );
 }
