@@ -46,6 +46,13 @@ export const register = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => err.message);
+      console.log({ msg: errors.join(", ") });
+      return res.status(400).json({ msg: errors.join(", ") });
+    }
+
     res.status(500).send("Server Error");
   }
 };
