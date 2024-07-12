@@ -57,11 +57,8 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
 
   return (
     <Indicator
-      // size={20}
-      // inline
-      // withBorder
       position="top-end"
-      // label={indicatorLabel}
+      zIndex={50}
       color={indicatorLabelColor}
       processing={!task.completed}
     >
