@@ -1,12 +1,4 @@
-import axios from "axios";
-
-// Localhost: http://localhost:5000
-// Render: https://elpip-internship-taskshare-mern-app.onrender.com
-
-const api = axios.create({
-  baseURL: "https://elpip-internship-taskshare-mern-app.onrender.com",
-  withCredentials: true,
-});
+import { api } from "./axiosConfig";
 
 export const register = async (userData) => {
   const response = await api.post("/api/auth/register", userData);
