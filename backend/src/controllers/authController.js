@@ -37,6 +37,8 @@ export const register = async (req, res) => {
       if (err) throw err;
       res.cookie("token", token, {
         httpOnly: true,
+        sameSite: "none",
+        secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       res.json({ msg: "Registration successful", token, user });
@@ -74,6 +76,8 @@ export const login = async (req, res) => {
       if (err) throw err;
       res.cookie("token", token, {
         httpOnly: true,
+        sameSite: "none",
+        secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       res.json({ msg: "Login successful", token, user });
