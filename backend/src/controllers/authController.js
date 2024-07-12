@@ -47,8 +47,8 @@ export const register = async (req, res) => {
   } catch (error) {
     console.error("error", error);
     console.error("error.message", error.message);
-
-    res.status(500).send("Server Error");
+    // res.status(500).send("Server Error");
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 
@@ -88,18 +88,25 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    // res.status(500).send("Server Error");
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 
 // Logout user
 export const logout = (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-  });
-  res.json({ msg: "Logout successful" });
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
+    res.json({ msg: "Logout successful" });
+  } catch (error) {
+    console.error(error.message);
+    // res.status(500).send("Server Error");
+    res.status(500).json({ msg: "Server Error" });
+  }
 };
 
 // Delete user and their tasks
@@ -118,7 +125,8 @@ export const deleteUser = async (req, res) => {
     res.json({ msg: "User and tasks deleted" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    // res.status(500).send("Server Error");
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 
@@ -132,7 +140,8 @@ export const getCurrentUser = async (req, res) => {
     res.json(user);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    // res.status(500).send("Server Error");
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 
@@ -143,6 +152,7 @@ export const getAllUsernames = async (req, res) => {
     res.json(users);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    // res.status(500).send("Server Error");
+    res.status(500).json({ msg: "Server Error" });
   }
 };

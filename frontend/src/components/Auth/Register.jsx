@@ -34,7 +34,8 @@ export default function Register() {
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast(error.message);
+      // toast(error.message);
+      toast(error?.response?.data?.msg);
     } finally {
       setLoading(false);
     }
@@ -54,7 +55,7 @@ export default function Register() {
           >
             <TextInput
               label="Name"
-              description="Username must be at least 3 characters long"
+              description="Name must be at least 3 characters long"
               placeholder="John Doe"
               type="text"
               name="name"

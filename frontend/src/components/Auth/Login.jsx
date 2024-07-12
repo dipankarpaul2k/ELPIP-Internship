@@ -24,15 +24,20 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const form = event.currentTarget;
-    const formData = Object.fromEntries(new FormData(form));
-    // console.log(formData);
-    const response = await login(formData);
-    // console.log(response);
-    toast(response.msg);
-    dispatch(setUser(response.user));
-    navigate("/");
+    try {
+      setLoading(true);
+      const form = event.currentTarget;
+      const formData = Object.fromEntries(new FormData(form));
+      const response = await login(formData);
+      toast(response.msg);
+      dispatch(setUser(response.user));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast(error?.response?.data?.msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,6 +54,7 @@ export default function Login() {
           >
             <TextInput
               label="Username"
+              description="Username must be at least 3 characters long"
               placeholder="johndoe"
               type="text"
               name="username"
@@ -57,6 +63,7 @@ export default function Login() {
             />
             <PasswordInput
               label="Password"
+              description="Password must be at least 5 characters long"
               placeholder="Input password"
               name="password"
               size="lg"
