@@ -12,8 +12,6 @@ export default function TaskViewModal({ isOpened, onClose, task }) {
           <Text
             fw={500}
             fz={{ base: "h4", sm: "h3" }}
-            // truncate="end"
-            w={"70%"}
           >
             {task.title}
           </Text>
