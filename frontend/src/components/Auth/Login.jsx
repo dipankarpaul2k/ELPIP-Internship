@@ -63,8 +63,13 @@ export default function Login() {
               defaultValue={"12345"}
             />
             <Flex justify={"center"} mt={"sm"}>
-              <Button type="submit" loading={loading} size="lg">
-                Submit
+              <Button
+                type="submit"
+                size="lg"
+                loading={loading}
+                disabled={loading}
+              >
+                Log In
               </Button>
             </Flex>
           </form>

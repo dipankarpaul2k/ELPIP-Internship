@@ -32,6 +32,7 @@ export default function Register() {
     // console.log(response);
     toast(response.msg);
     dispatch(setUser(response.user));
+    setLoading(false);
     navigate("/");
   };
 
@@ -68,8 +69,13 @@ export default function Register() {
               size="lg"
             />
             <Flex justify={"center"} mt={"sm"}>
-              <Button type="submit" loading={loading} size="lg">
-                Submit
+              <Button
+                type="submit"
+                size="lg"
+                loading={loading}
+                disabled={loading}
+              >
+                Register
               </Button>
             </Flex>
           </form>
