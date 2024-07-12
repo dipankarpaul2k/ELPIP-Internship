@@ -8,6 +8,7 @@ import {
   SimpleGrid,
   Text,
   Title,
+  Loader,
 } from "@mantine/core";
 import toast from "react-hot-toast";
 
@@ -58,11 +59,11 @@ export default function TaskList() {
 
   if (loading) {
     return (
-      <>
-        <Box>
-          <p>Loading...</p>
-        </Box>
-      </>
+      <Box mih={"80vh"}>
+        <Center mih={"80vh"}>
+          <Loader color="blue" size="lg" type="bars" />
+        </Center>
+      </Box>
     );
   }
 
