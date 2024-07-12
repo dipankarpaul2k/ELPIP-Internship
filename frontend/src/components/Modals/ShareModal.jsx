@@ -31,19 +31,20 @@ export default function ShareModal({
           </Text>
         }
       >
-        <MultiSelect
-          label="Who do you want to share this task with?"
-          placeholder="Search usernames"
-          data={usernames}
-          value={shareWithUsernames}
-          onChange={setShareWithUsernames}
-          clearable
-          searchable
-          maxDropdownHeight={145}
-          checkIconPosition="right"
-          dropdownOpened={true}
-        />
-        <Flex justify={"center"} mt={"150px"}>
+        <Flex justify={"center"} mt={"sm"}>
+          <MultiSelect
+            label="Who do you want to share this task with?"
+            placeholder="Search usernames"
+            data={usernames}
+            value={shareWithUsernames}
+            onChange={setShareWithUsernames}
+            clearable
+            searchable
+            maxDropdownHeight={145}
+            checkIconPosition="right"
+            dropdownOpened={true}
+          />
+
           <Button onClick={handleShare}>Share</Button>
         </Flex>
       </Modal>
