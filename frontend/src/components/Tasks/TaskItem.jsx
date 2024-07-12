@@ -58,7 +58,8 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
 
   return (
     <Indicator
-      size={12}
+      size={16}
+      inline
       withBorder
       position="top-start"
       label={indicatorLabel}
