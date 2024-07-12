@@ -70,7 +70,7 @@ export default function AppLayout() {
           </Group>
         </AppShell.Header>
         <AppShell.Navbar py="md" px={4}>
-          <Stack align="stretch" justify="flex-start" gap="sm" h={"100%"} pb={"sm"}>
+          <Stack align="stretch" justify="flex-start" gap="sm" h={"100%"}>
             <AppHeader closeNav={closeNav}/>
           </Stack>
         </AppShell.Navbar>

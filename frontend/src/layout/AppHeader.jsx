@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { useDisclosure } from "@mantine/hooks";
@@ -35,9 +35,6 @@ export default function AppHeader({ closeNav }) {
         <>
           {/* Login */}
           <Button
-            // component={Link}
-            // to="/login"
-            // onClick={closeNav}
             onClick={() => smoothNavigation("/login")}
             variant="subtle"
             size="md"
@@ -47,9 +44,6 @@ export default function AppHeader({ closeNav }) {
           </Button>
           {/* Register */}
           <Button
-            // component={Link}
-            // to="/register"
-            // onClick={closeNav}
             onClick={() => smoothNavigation("/register")}
             size="md"
             px={"md"}
@@ -61,9 +55,6 @@ export default function AppHeader({ closeNav }) {
         <>
           {/* Home */}
           <Button
-            // component={Link}
-            // to="/"
-            // onClick={closeNav}
             onClick={() => smoothNavigation("/")}
             variant="subtle"
             size="md"
@@ -73,9 +64,6 @@ export default function AppHeader({ closeNav }) {
           </Button>
           {/* Shared */}
           <Button
-            // component={Link}
-            // to="/shared"
-            // onClick={closeNav}
             onClick={() => smoothNavigation("/shared")}
             variant="subtle"
             size="md"
