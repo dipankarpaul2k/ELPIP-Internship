@@ -40,7 +40,7 @@ export const register = async (req, res) => {
         sameSite: "none",
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        domain: '.render.com'
+        // domain: '.render.com'
       });
       res.json({ msg: "Registration successful", token, user });
     });
@@ -80,7 +80,7 @@ export const login = async (req, res) => {
         sameSite: "none",
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        domain: '.render.com'
+        // domain: '.render.com'
       });
       res.json({ msg: "Login successful", token, user });
     });
