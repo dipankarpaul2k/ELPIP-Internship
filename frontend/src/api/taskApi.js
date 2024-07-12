@@ -1,5 +1,4 @@
 import axios from "axios";
-import axiosApi from "../config/axios";
 
 // Localhost: http://localhost:5000
 // Render: https://elpip-internship-taskshare-mern-app.onrender.com
@@ -10,7 +9,7 @@ const api = axios.create({
 });
 
 export const createTask = async (taskData) => {
-  const response = await axiosApi.post("/tasks", taskData);
+  const response = await api.post("/tasks", taskData);
   return response.data;
 };
 
