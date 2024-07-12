@@ -39,8 +39,8 @@ export default function ShareModal({
           onChange={setShareWithUsernames}
           clearable
           searchable
-          limit={5}
-          maxDropdownHeight={200}
+          // limit={5}
+          maxDropdownHeight={150}
           checkIconPosition="right"
           dropdownOpened={true}
         />
