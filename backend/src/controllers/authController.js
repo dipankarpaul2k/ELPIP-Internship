@@ -47,7 +47,7 @@ export const register = async (req, res) => {
   } catch (error) {
     console.error(error);
     console.error(error.message);
-    console.error(error.response.data.msg);
+    console.error(error?.response?.data?.msg);
 
     // if (error.name === "ValidationError") {
     //   const errors = Object.values(error.errors).map((err) => err.message);

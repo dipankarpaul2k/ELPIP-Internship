@@ -50,6 +50,7 @@ export default function Register() {
           >
             <TextInput
               label="Name"
+              description="Username must be at least 3 characters long"
               placeholder="John Doe"
               type="text"
               name="name"
@@ -57,6 +58,7 @@ export default function Register() {
             />
             <TextInput
               label="Username"
+              description="Username must be at least 3 characters long"
               placeholder="johndoe"
               type="text"
               name="username"
@@ -64,6 +66,7 @@ export default function Register() {
             />
             <PasswordInput
               label="Password"
+              description="Password must be at least 5 characters long"
               placeholder="Input password"
               name="password"
               size="lg"
