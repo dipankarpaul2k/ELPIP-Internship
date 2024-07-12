@@ -20,6 +20,7 @@ export default function AppHeader({ closeNav }) {
     toast(response.msg);
     dispatch(clearUser());
     close();
+    closeNav();
     navigate("/");
   };
 
