@@ -8,7 +8,7 @@ import { authSelector, clearUser } from "../features/auth/authSlice";
 import { logout } from "../api/authApi";
 import LogoutModal from "../components/Modals/LogoutModal";
 
-export default function AppHeader({closeNav}) {
+export default function AppHeader({ closeNav }) {
   const [opened, { open, close }] = useDisclosure(false);
 
   const auth = useSelector(authSelector);
@@ -31,28 +31,35 @@ export default function AppHeader({closeNav}) {
           <Button
             component={Link}
             to="/login"
+            onClick={closeNav}
             variant="subtle"
             size="md"
             px={"md"}
-            onClick={closeNav}
           >
             Login
           </Button>
           {/* Register */}
-          <Button component={Link} size="md" to="/register" px={"md"}>
+          <Button
+            component={Link}
+            to="/register"
+            onClick={closeNav}
+            size="md"
+            px={"md"}
+          >
             Register
           </Button>
         </>
       ) : (
         <>
           {/* Home */}
-          <Button component={Link} to="/" variant="subtle" size="md" px={"md"}>
+          <Button component={Link} to="/" onClick={closeNav} variant="subtle" size="md" px={"md"}>
             Home
           </Button>
           {/* Shared */}
           <Button
             component={Link}
             to="/shared"
+            onClick={closeNav}
             variant="subtle"
             size="md"
             px={"md"}
