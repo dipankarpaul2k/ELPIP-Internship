@@ -34,13 +34,15 @@ export default function ShareModal({
         <MultiSelect
           label="Who do you want to share this task with?"
           placeholder="Search usernames"
-          clearable
-          searchable
           data={usernames}
           value={shareWithUsernames}
           onChange={setShareWithUsernames}
+          clearable
+          searchable
           limit={5}
           maxDropdownHeight={200}
+          checkIconPosition="right"
+          dropdownOpened={true}
         />
         <Flex justify={"center"} mt={"sm"}>
           <Button onClick={handleShare}>Share</Button>
