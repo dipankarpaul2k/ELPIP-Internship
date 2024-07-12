@@ -23,6 +23,11 @@ export default function AppHeader({ closeNav }) {
     navigate("/");
   };
 
+  const smoothNavigation = (path) => {
+    navigate(path);
+    closeNav();
+  };
+
   return (
     <>
       {!auth.isAuthenticated ? (
@@ -40,9 +45,10 @@ export default function AppHeader({ closeNav }) {
           </Button>
           {/* Register */}
           <Button
-            component={Link}
-            to="/register"
-            onClick={closeNav}
+            // component={Link}
+            // to="/register"
+            // onClick={closeNav}
+            onClick={() => smoothNavigation("/register")}
             size="md"
             px={"md"}
           >
@@ -52,14 +58,22 @@ export default function AppHeader({ closeNav }) {
       ) : (
         <>
           {/* Home */}
-          <Button component={Link} to="/" onClick={closeNav} variant="subtle" size="md" px={"md"}>
+          <Button
+            component={Link}
+            to="/"
+            onClick={closeNav}
+            variant="subtle"
+            size="md"
+            px={"md"}
+          >
             Home
           </Button>
           {/* Shared */}
           <Button
-            component={Link}
-            to="/shared"
-            onClick={closeNav}
+            // component={Link}
+            // to="/shared"
+            // onClick={closeNav}
+            onClick={() => smoothNavigation("/shared")}
             variant="subtle"
             size="md"
             px={"md"}
