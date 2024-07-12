@@ -24,16 +24,20 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const form = event.currentTarget;
-    const formData = Object.fromEntries(new FormData(form));
-    // console.log(formData);
-    const response = await register(formData);
-    // console.log(response);
-    toast(response.msg);
-    dispatch(setUser(response.user));
-    setLoading(false);
-    navigate("/");
+    try {
+      setLoading(true);
+      const form = event.currentTarget;
+      const formData = Object.fromEntries(new FormData(form));
+      const response = await register(formData);
+      toast(response.msg);
+      dispatch(setUser(response.user));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

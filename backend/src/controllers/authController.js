@@ -45,15 +45,8 @@ export const register = async (req, res) => {
       res.json({ msg: "Registration successful", token, user });
     });
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
-    console.error(error?.response?.data?.msg);
-
-    // if (error.name === "ValidationError") {
-    //   const errors = Object.values(error.errors).map((err) => err.message);
-    //   console.log({ msg: errors.join(", ") });
-    //   return res.status(400).json({ msg: errors.join(", ") });
-    // }
+    console.error("error", error);
+    console.error("error.message", error.message);
 
     res.status(500).send("Server Error");
   }
