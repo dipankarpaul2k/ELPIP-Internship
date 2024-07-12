@@ -8,7 +8,7 @@ import { authSelector, clearUser } from "../features/auth/authSlice";
 import { logout } from "../api/authApi";
 import LogoutModal from "../components/Modals/LogoutModal";
 
-export default function AppHeader() {
+export default function AppHeader({closeNav}) {
   const [opened, { open, close }] = useDisclosure(false);
 
   const auth = useSelector(authSelector);
@@ -34,6 +34,7 @@ export default function AppHeader() {
             variant="subtle"
             size="md"
             px={"md"}
+            onClick={closeNav}
           >
             Login
           </Button>

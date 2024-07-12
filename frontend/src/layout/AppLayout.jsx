@@ -17,7 +17,7 @@ import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 
 export default function AppLayout() {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close: closeNav }] = useDisclosure();
   const auth = useSelector(authSelector);
   const userName = auth?.user?.username;
   // console.log(userName);
@@ -71,7 +71,7 @@ export default function AppLayout() {
         </AppShell.Header>
         <AppShell.Navbar py="md" px={4}>
           <Stack align="stretch" justify="flex-start" gap="sm" h={"100%"} pb={"sm"}>
-            <AppHeader />
+            <AppHeader closeNav={closeNav}/>
           </Stack>
         </AppShell.Navbar>
 
