@@ -53,17 +53,17 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
     refetchTasks();
   };
 
-  const indicatorLabel = task.completed ? "Done" : "Pending";
   const indicatorLabelColor = task.completed ? "green" : "red";
 
   return (
     <Indicator
-      // size={16}
+      // size={20}
       // inline
       // withBorder
-      position="top-start"
-      label={indicatorLabel}
+      position="top-end"
+      // label={indicatorLabel}
       color={indicatorLabelColor}
+      processing={!task.completed}
     >
       {/* Task card */}
       <Card shadow="sm" padding="lg" radius="md" withBorder>
