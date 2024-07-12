@@ -24,7 +24,6 @@ export const register = async (req, res) => {
     user.password = await bcrypt.hash(password, salt);
 
     await user.save();
-
     // console.log(user);
 
     const payload = {
@@ -45,9 +44,14 @@ export const register = async (req, res) => {
       res.json({ msg: "Registration successful", token, user });
     });
   } catch (error) {
-    console.error("error", error);
-    console.error("error.message", error.message);
-    // res.status(500).send("Server Error");
+    console.error("error.name =>", error.name);
+    console.error("error.message =>", error.message);
+
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => err.message);
+      res.status(400).json({ msg: errors.join(", ") });
+    }
+
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -87,8 +91,14 @@ export const login = async (req, res) => {
       res.json({ msg: "Login successful", token, user });
     });
   } catch (error) {
-    console.error(error.message);
-    // res.status(500).send("Server Error");
+    console.error("error.name =>", error.name);
+    console.error("error.message =>", error.message);
+
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => err.message);
+      res.status(400).json({ msg: errors.join(", ") });
+    }
+
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -104,7 +114,6 @@ export const logout = (req, res) => {
     res.json({ msg: "Logout successful" });
   } catch (error) {
     console.error(error.message);
-    // res.status(500).send("Server Error");
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -125,7 +134,6 @@ export const deleteUser = async (req, res) => {
     res.json({ msg: "User and tasks deleted" });
   } catch (error) {
     console.error(error.message);
-    // res.status(500).send("Server Error");
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -135,12 +143,11 @@ export const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      res.status(401).json({ msg: "User not found" });
     }
     res.json(user);
   } catch (error) {
     console.error(error.message);
-    // res.status(500).send("Server Error");
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -152,7 +159,6 @@ export const getAllUsernames = async (req, res) => {
     res.json(users);
   } catch (error) {
     console.error(error.message);
-    // res.status(500).send("Server Error");
     res.status(500).json({ msg: "Server Error" });
   }
 };
