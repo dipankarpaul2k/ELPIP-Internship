@@ -31,9 +31,11 @@ export default function ShareModal({
           </Text>
         }
       >
+        <Text fw={500}>Who do you want to share this task with?</Text>
         <Flex justify={"center"} mt={"sm"}>
           <MultiSelect
-            label="Who do you want to share this task with?"
+            // label="Who do you want to share this task with?"
+            aria-label="Who do you want to share this task with?"
             placeholder="Search usernames"
             data={usernames}
             value={shareWithUsernames}
