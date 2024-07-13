@@ -17,6 +17,13 @@ const TaskForm = reactMemo(({ fetchTasks, currentTask, handleUpdate }) => {
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState(new Date());
 
+  // Handle Reset Form
+  const resetForm = useCallback(() => {
+    setTitle("");
+    setDescription("");
+    setDeadline(new Date());
+  }, []);
+
   // Fill the form based on the currentTask
   useEffect(() => {
     if (currentTask) {
@@ -27,13 +34,6 @@ const TaskForm = reactMemo(({ fetchTasks, currentTask, handleUpdate }) => {
       resetForm();
     }
   }, [currentTask, resetForm]);
-
-  // Handle Reset Form
-  const resetForm = useCallback(() => {
-    setTitle("");
-    setDescription("");
-    setDeadline(new Date());
-  }, []);
 
   // Handle Task Sunmission
   const handleTaskSubmit = async () => {

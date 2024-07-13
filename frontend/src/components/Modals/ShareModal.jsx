@@ -11,10 +11,6 @@ export default function ShareModal({
 }) {
   const [usernames, setUsernames] = useState([]);
 
-  useEffect(() => {
-    fetchUsernames();
-  }, [fetchUsernames]);
-
   // Fetch All Usernames For Sharing
   const fetchUsernames = useCallback(async () => {
     try {
@@ -25,6 +21,10 @@ export default function ShareModal({
       console.error("Failed to fetch usernames", error);
     }
   }, []);
+
+  useEffect(() => {
+    fetchUsernames();
+  }, [fetchUsernames]);
 
   return (
     <>
