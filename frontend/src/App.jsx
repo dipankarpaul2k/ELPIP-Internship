@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Box, Center, Loader } from "@mantine/core";
+import { Box, Center, Loader, Text } from "@mantine/core";
 
 import PrivatePage from "./pages/guard/PrivatePage";
 import PublicPage from "./pages/guard/PublicPage";
@@ -40,25 +40,27 @@ const router = createBrowserRouter([
 
 export default function App() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  // Check current user state
-  const getUser = async () => {
+  // Check Current User State
+  const getUser = useCallback(async () => {
     try {
       setLoading(true);
       const response = await getCurrentUser();
       dispatch(setUser(response));
     } catch (error) {
       console.log(error);
+      setError("Failed to load user data.");
     } finally {
       setLoading(false);
     }
-  };
+  }, [dispatch]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
   if (loading) {
     return (
@@ -70,9 +72,15 @@ export default function App() {
     );
   }
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  if (error) {
+    return (
+      <Box mih={"100vh"}>
+        <Center mih={"100vh"}>
+          <Text c="red">{error}</Text>
+        </Center>
+      </Box>
+    );
+  }
+
+  return <RouterProvider router={router} />;
 }
