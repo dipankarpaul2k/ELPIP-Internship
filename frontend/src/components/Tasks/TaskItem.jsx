@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   ActionIcon,
   Box,
@@ -35,25 +35,35 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
 
   const auth = useSelector(authSelector);
   const taskOwner = auth.user._id === task.owner._id;
+  const indicatorLabelColor = task.completed ? "green" : "red";
 
   const [shareWithUsernames, setShareWithUsernames] = useState([]);
 
   // Handle Toggle Task Completion State
-  const handleToggleTaskCompletion = async () => {
-    const response = await toggleTaskCompletion(task._id);
-    toast(response.msg);
-    refetchTasks();
-  };
+  const handleToggleTaskCompletion = useCallback(async () => {
+    try {
+      const response = await toggleTaskCompletion(task._id);
+      toast.success(response.msg);
+      refetchTasks();
+    } catch (error) {
+      toast.error("Failed to toggle task completion");
+    }
+  }, [task._id, refetchTasks]);
 
   // Handle Toggle Task Sharing
-  const handleShare = async () => {
-    const response = await shareTask({ taskId: task._id, shareWithUsernames });
-    toast(response.msg);
-    shareClose();
-    refetchTasks();
-  };
-
-  const indicatorLabelColor = task.completed ? "green" : "red";
+  const handleShare = useCallback(async () => {
+    try {
+      const response = await shareTask({
+        taskId: task._id,
+        shareWithUsernames,
+      });
+      toast.success(response.msg);
+      shareClose();
+      refetchTasks();
+    } catch (error) {
+      toast.error("Failed to share task");
+    }
+  }, [task._id, shareWithUsernames, shareClose, refetchTasks]);
 
   return (
     <Indicator
