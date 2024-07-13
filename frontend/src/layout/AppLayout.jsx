@@ -54,7 +54,7 @@ export default function AppLayout() {
                 <AppHeader />
               </Group>
             </Group>
-            <Group>
+            <Group hiddenFrom="sm">
               {userName && (
                 <Text mr={"sm"} fw={400} hiddenFrom="sm">
                   Hi {userName}
