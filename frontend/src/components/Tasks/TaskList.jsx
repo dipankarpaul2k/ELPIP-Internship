@@ -19,6 +19,7 @@ export default function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Fetch Tasks
   const fetchTasks = useCallback(async () => {
@@ -28,6 +29,7 @@ export default function TaskList() {
       setTasks(tasks);
     } catch (error) {
       console.error(error);
+      setError("Failed to load tasks.");
     } finally {
       setLoading(false);
     }
@@ -72,12 +74,21 @@ export default function TaskList() {
     [currentTask, fetchTasks]
   );
 
-  // Handle Loading Tasks
   if (loading) {
     return (
       <Box mih={"80vh"}>
         <Center mih={"80vh"}>
           <Loader color="blue" size="lg" type="bars" />
+        </Center>
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box mih={"80vh"}>
+        <Center mih={"80vh"}>
+          <Text c="red">{error}</Text>
         </Center>
       </Box>
     );
