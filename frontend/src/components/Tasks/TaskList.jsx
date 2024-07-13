@@ -21,17 +21,6 @@ export default function TaskList() {
   const [loading, setLoading] = useState(false);
 
   // Fetch Tasks
-  // async function fetchTasks() {
-  //   try {
-  //     setLoading(true);
-  //     const tasks = await getTasks();
-  //     setTasks(tasks);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
@@ -44,16 +33,12 @@ export default function TaskList() {
     }
   }, []);
 
+  // Fetch Tasks in Initial Render
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);
 
   // Handle Task Deletion
-  // const handleDelete = async (taskId) => {
-  //   const response = await deleteTask(taskId);
-  //   toast(response.msg);
-  //   fetchTasks();
-  // };
   const handleDelete = useCallback(
     async (taskId) => {
       try {
@@ -68,20 +53,11 @@ export default function TaskList() {
   );
 
   // Handle Task Editing
-  // const handleEdit = (task) => {
-  //   setCurrentTask(task);
-  // };
   const handleEdit = useCallback((task) => {
     setCurrentTask(task);
   }, []);
 
   // Handle Task Updates
-  // const handleUpdate = async (updatedTask) => {
-  //   const response = await updateTask(currentTask._id, updatedTask);
-  //   toast(response.msg);
-  //   setCurrentTask(null);
-  //   fetchTasks();
-  // };
   const handleUpdate = useCallback(
     async (updatedTask) => {
       try {
@@ -96,6 +72,7 @@ export default function TaskList() {
     [currentTask, fetchTasks]
   );
 
+  // Handle Loading Tasks
   if (loading) {
     return (
       <Box mih={"80vh"}>

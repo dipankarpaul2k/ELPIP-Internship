@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, memo as reactMemo } from "react";
 import {
   Box,
   Button,
@@ -12,30 +12,30 @@ import toast from "react-hot-toast";
 
 import { createTask } from "../../api/taskApi";
 
-export default function TaskForm({ fetchTasks, currentTask, handleUpdate }) {
+const TaskForm = reactMemo(({ fetchTasks, currentTask, handleUpdate }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState(new Date());
 
+  // Fill the form based on the currentTask
   useEffect(() => {
     if (currentTask) {
       setTitle(currentTask.title);
       setDescription(currentTask.description);
       setDeadline(new Date(currentTask.deadline));
     } else {
-      // setTitle("");
-      // setDescription("");
-      // setDeadline(new Date());
       resetForm();
     }
   }, [currentTask, resetForm]);
 
+  // Handle Reset Form
   const resetForm = useCallback(() => {
     setTitle("");
     setDescription("");
     setDeadline(new Date());
   }, []);
 
+  // Handle Task Sunmission
   const handleTaskSubmit = async () => {
     // console.log(title, description, deadline);
     if (!title || !description || !deadline) {
@@ -43,16 +43,6 @@ export default function TaskForm({ fetchTasks, currentTask, handleUpdate }) {
       return;
     }
 
-    // if (currentTask) {
-    //   handleUpdate({ title, description, deadline });
-    // } else {
-    //   const response = await createTask({ title, description, deadline });
-    //   toast.success(response.msg);
-    //   fetchTasks();
-    // }
-    // setTitle("");
-    // setDescription("");
-    // setDeadline("");
     try {
       if (currentTask) {
         await handleUpdate({ title, description, deadline });
@@ -105,4 +95,6 @@ export default function TaskForm({ fetchTasks, currentTask, handleUpdate }) {
       </Container>
     </>
   );
-}
+});
+
+export default TaskForm;
