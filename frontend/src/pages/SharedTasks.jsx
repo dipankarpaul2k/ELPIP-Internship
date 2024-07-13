@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -7,7 +8,6 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
 
 import { getSharedTasks } from "../api/taskApi";
 import TaskItem from "../components/Tasks/TaskItem";
@@ -15,22 +15,24 @@ import TaskItem from "../components/Tasks/TaskItem";
 export default function SharedTasks() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  async function fetchTasks() {
+  const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
       const tasks = await getSharedTasks();
       setTasks(tasks);
     } catch (error) {
       console.log(error);
+      setError("Failed to load tasks.");
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   // console.log(tasks);
 
@@ -39,6 +41,16 @@ export default function SharedTasks() {
       <Box mih={"80vh"}>
         <Center mih={"80vh"}>
           <Loader color="blue" size="lg" type="bars" />
+        </Center>
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box mih={"80vh"}>
+        <Center mih={"80vh"}>
+          <Text c="red">{error}</Text>
         </Center>
       </Box>
     );
