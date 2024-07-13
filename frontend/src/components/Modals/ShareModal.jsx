@@ -1,5 +1,5 @@
 import { Button, Flex, Modal, MultiSelect, Text } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getAllUsernames } from "../../api/authApi";
 
 export default function ShareModal({
@@ -12,11 +12,18 @@ export default function ShareModal({
   const [usernames, setUsernames] = useState([]);
 
   useEffect(() => {
-    const allUsernames = [];
-    getAllUsernames().then((users) => {
-      users.map((user) => allUsernames.push(user.username));
-    });
-    setUsernames(allUsernames);
+    fetchUsernames();
+  }, [fetchUsernames]);
+
+  // Fetch All Usernames For Sharing
+  const fetchUsernames = useCallback(async () => {
+    try {
+      const users = await getAllUsernames();
+      const allUsernames = users.map((user) => user.username);
+      setUsernames(allUsernames);
+    } catch (error) {
+      console.error("Failed to fetch usernames", error);
+    }
   }, []);
 
   return (
