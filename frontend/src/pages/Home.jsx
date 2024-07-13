@@ -58,7 +58,7 @@ export default function Home() {
               </Title>
               <Text size="lg" c="dimmed">
                 Manage your tasks, share with others and boost productivity
-                together.
+                together
               </Text>
               <Flex justify="center" my="md">
                 <Button onClick={() => navigate("/login")} size="lg">Get Started</Button>
