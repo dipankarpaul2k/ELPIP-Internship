@@ -8,7 +8,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -18,27 +18,62 @@ import { setUser } from "../../features/auth/authSlice";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "username2",
+    password: "12345",
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      setLoading(true);
-      const form = event.currentTarget;
-      const formData = Object.fromEntries(new FormData(form));
-      const response = await login(formData);
-      toast(response.msg);
-      dispatch(setUser(response.user));
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      toast(error?.response?.data?.msg);
-    } finally {
-      setLoading(false);
-    }
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     setLoading(true);
+  //     const form = event.currentTarget;
+  //     const formData = Object.fromEntries(new FormData(form));
+  //     const response = await login(formData);
+  //     toast(response.msg);
+  //     dispatch(setUser(response.user));
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast(error?.response?.data?.msg);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      if (!formData.username || formData.username.length < 3) {
+        toast.error("Username must be at least 3 characters long");
+        return;
+      }
+      if (!formData.password || formData.password.length < 5) {
+        toast.error("Password must be at least 5 characters long");
+        return;
+      }
+      try {
+        setLoading(true);
+        const response = await login(formData);
+        toast.success(response.msg);
+        dispatch(setUser(response.user));
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.msg || "An error occurred");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [formData, dispatch, navigate]
+  );
 
   return (
     <Box mih={"70vh"}>
@@ -59,7 +94,9 @@ export default function Login() {
               type="text"
               name="username"
               size="lg"
-              defaultValue={"username2"}
+              // defaultValue={"username2"}
+              value={formData.username}
+              onChange={handleInputChange}
             />
             <PasswordInput
               label="Password"
@@ -67,7 +104,9 @@ export default function Login() {
               placeholder="Input password"
               name="password"
               size="lg"
-              defaultValue={"12345"}
+              // defaultValue={"12345"}
+              value={formData.password}
+              onChange={handleInputChange}
             />
             <Flex justify={"center"} mt={"sm"}>
               <Button
