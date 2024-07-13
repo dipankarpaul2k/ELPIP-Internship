@@ -9,11 +9,13 @@ import {
   Text,
   Title,
   Loader,
+  Alert,
 } from "@mantine/core";
 import toast from "react-hot-toast";
 
 import TaskItem from "./TaskItem";
 import TaskForm from "./TaskForm";
+import { IconExclamationCircle } from "@tabler/icons-react";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -57,6 +59,10 @@ export default function TaskList() {
   // Handle Task Editing
   const handleEdit = useCallback((task) => {
     setCurrentTask(task);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   // Handle Task Updates
@@ -84,18 +90,19 @@ export default function TaskList() {
     );
   }
 
-  if (error) {
-    return (
-      <Box mih={"80vh"}>
-        <Center mih={"80vh"}>
-          <Text c="red">{error}</Text>
-        </Center>
-      </Box>
-    );
-  }
-
   return (
     <>
+      {/* If Error */}
+      {error && (
+        <Alert
+          variant="light"
+          color="red"
+          title="Error"
+          icon={<IconExclamationCircle stroke={2} />}
+        >
+          {error}
+        </Alert>
+      )}
       <TaskForm
         fetchTasks={fetchTasks}
         currentTask={currentTask}

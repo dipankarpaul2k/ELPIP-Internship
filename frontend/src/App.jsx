@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Box, Center, Loader, Text } from "@mantine/core";
+import { Box, Center, Loader } from "@mantine/core";
 
 import PrivatePage from "./pages/guard/PrivatePage";
 import PublicPage from "./pages/guard/PublicPage";
@@ -40,7 +40,6 @@ const router = createBrowserRouter([
 
 export default function App() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -52,7 +51,6 @@ export default function App() {
       dispatch(setUser(response));
     } catch (error) {
       console.log(error);
-      setError("Failed to load user data.");
     } finally {
       setLoading(false);
     }
@@ -67,16 +65,6 @@ export default function App() {
       <Box mih={"100vh"}>
         <Center mih={"100vh"}>
           <Loader color="blue" size="lg" type="bars" />
-        </Center>
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box mih={"100vh"}>
-        <Center mih={"100vh"}>
-          <Text c="red">{error}</Text>
         </Center>
       </Box>
     );

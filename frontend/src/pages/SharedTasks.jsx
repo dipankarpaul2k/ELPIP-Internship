@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import {
+  Alert,
   Box,
   Center,
   Container,
@@ -11,13 +12,15 @@ import {
 
 import { getSharedTasks } from "../api/taskApi";
 import TaskItem from "../components/Tasks/TaskItem";
+import { IconExclamationCircle } from "@tabler/icons-react";
 
 export default function SharedTasks() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchTasks = useCallback(async () => {
+  // Fetch Shared Tasks
+  const fetchSharedTasks = useCallback(async () => {
     try {
       setLoading(true);
       const tasks = await getSharedTasks();
@@ -31,8 +34,8 @@ export default function SharedTasks() {
   }, []);
 
   useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+    fetchSharedTasks();
+  }, [fetchSharedTasks]);
 
   // console.log(tasks);
 
@@ -46,18 +49,19 @@ export default function SharedTasks() {
     );
   }
 
-  if (error) {
-    return (
-      <Box mih={"80vh"}>
-        <Center mih={"80vh"}>
-          <Text c="red">{error}</Text>
-        </Center>
-      </Box>
-    );
-  }
-
   return (
     <>
+      {/* If Error */}
+      {error && (
+        <Alert
+          variant="light"
+          color="red"
+          title="Error"
+          icon={<IconExclamationCircle stroke={2} />}
+        >
+          {error}
+        </Alert>
+      )}
       <Title fz={{ base: "h4", xs: "h3" }} ta={"center"} mb={"sm"}>
         Task shared with you
       </Title>
