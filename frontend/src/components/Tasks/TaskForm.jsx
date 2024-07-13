@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   Box,
   Button,
@@ -8,8 +8,9 @@ import {
   TextInput,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
-import { createTask } from "../../api/taskApi";
 import toast from "react-hot-toast";
+
+import { createTask } from "../../api/taskApi";
 
 export default function TaskForm({ fetchTasks, currentTask, handleUpdate }) {
   const [title, setTitle] = useState("");
@@ -22,24 +23,48 @@ export default function TaskForm({ fetchTasks, currentTask, handleUpdate }) {
       setDescription(currentTask.description);
       setDeadline(new Date(currentTask.deadline));
     } else {
-      setTitle("");
-      setDescription("");
-      setDeadline(new Date());
+      // setTitle("");
+      // setDescription("");
+      // setDeadline(new Date());
+      resetForm();
     }
-  }, [currentTask]);
+  }, [currentTask, resetForm]);
+
+  const resetForm = useCallback(() => {
+    setTitle("");
+    setDescription("");
+    setDeadline(new Date());
+  }, []);
 
   const handleTaskSubmit = async () => {
     // console.log(title, description, deadline);
-    if (currentTask) {
-      handleUpdate({ title, description, deadline });
-    } else {
-      const response = await createTask({ title, description, deadline });
-      toast(response.msg);
-      fetchTasks();
+    if (!title || !description || !deadline) {
+      toast.error("All fields are required");
+      return;
     }
-    setTitle("");
-    setDescription("");
-    setDeadline("");
+
+    // if (currentTask) {
+    //   handleUpdate({ title, description, deadline });
+    // } else {
+    //   const response = await createTask({ title, description, deadline });
+    //   toast.success(response.msg);
+    //   fetchTasks();
+    // }
+    // setTitle("");
+    // setDescription("");
+    // setDeadline("");
+    try {
+      if (currentTask) {
+        await handleUpdate({ title, description, deadline });
+      } else {
+        const response = await createTask({ title, description, deadline });
+        toast.success(response.msg);
+      }
+      fetchTasks();
+      resetForm();
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
