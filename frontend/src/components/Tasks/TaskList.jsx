@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { deleteTask, getTasks, updateTask } from "../../api/taskApi";
 import {
   Box,
@@ -20,42 +20,81 @@ export default function TaskList() {
   const [currentTask, setCurrentTask] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   // Fetch Tasks
-  async function fetchTasks() {
+  // async function fetchTasks() {
+  //   try {
+  //     setLoading(true);
+  //     const tasks = await getTasks();
+  //     setTasks(tasks);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+  const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
       const tasks = await getTasks();
       setTasks(tasks);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   // Handle Task Deletion
-  const handleDelete = async (taskId) => {
-    const response = await deleteTask(taskId);
-    toast(response.msg);
-    fetchTasks();
-  };
+  // const handleDelete = async (taskId) => {
+  //   const response = await deleteTask(taskId);
+  //   toast(response.msg);
+  //   fetchTasks();
+  // };
+  const handleDelete = useCallback(
+    async (taskId) => {
+      try {
+        const response = await deleteTask(taskId);
+        toast.success(response.msg);
+        fetchTasks();
+      } catch (error) {
+        toast.error("Failed to delete task");
+      }
+    },
+    [fetchTasks]
+  );
 
   // Handle Task Editing
-  const handleEdit = (task) => {
+  // const handleEdit = (task) => {
+  //   setCurrentTask(task);
+  // };
+  const handleEdit = useCallback((task) => {
     setCurrentTask(task);
-  };
+  }, []);
 
   // Handle Task Updates
-  const handleUpdate = async (updatedTask) => {
-    const response = await updateTask(currentTask._id, updatedTask);
-    toast(response.msg);
-    setCurrentTask(null);
-    fetchTasks();
-  };
+  // const handleUpdate = async (updatedTask) => {
+  //   const response = await updateTask(currentTask._id, updatedTask);
+  //   toast(response.msg);
+  //   setCurrentTask(null);
+  //   fetchTasks();
+  // };
+  const handleUpdate = useCallback(
+    async (updatedTask) => {
+      try {
+        const response = await updateTask(currentTask._id, updatedTask);
+        toast.success(response.msg);
+        setCurrentTask(null);
+        fetchTasks();
+      } catch (error) {
+        toast.error("Failed to update task");
+      }
+    },
+    [currentTask, fetchTasks]
+  );
 
   if (loading) {
     return (
@@ -94,7 +133,7 @@ export default function TaskList() {
         ) : (
           <>
             <Center>
-              <Text>No task. Add a task to view them here.</Text>
+              <Text>No tasks. Add a task to view them here.</Text>
             </Center>
           </>
         )}
