@@ -27,7 +27,13 @@ import { authSelector } from "../../features/auth/authSlice";
 import ShareModal from "../Modals/ShareModal";
 import TaskViewModal from "../Modals/TaskViewModal";
 
-export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
+export default function TaskItem({
+  task,
+  onDelete,
+  onEdit,
+  refetchTasks,
+  usernamesForShare,
+}) {
   const [shareOpened, { open: shareOpen, close: shareClose }] =
     useDisclosure(false);
   const [taskOpened, { close: taskClose, open: taskOpen }] =
@@ -160,6 +166,7 @@ export default function TaskItem({ task, onDelete, onEdit, refetchTasks }) {
         isOpened={shareOpened}
         onClose={shareClose}
         handleShare={handleShare}
+        usernamesForShare={usernamesForShare}
         shareWithUsernames={shareWithUsernames}
         setShareWithUsernames={setShareWithUsernames}
       />

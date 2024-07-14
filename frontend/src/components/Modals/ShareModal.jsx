@@ -1,31 +1,13 @@
 import { Button, Flex, Modal, MultiSelect, Text } from "@mantine/core";
-import { useEffect, useState, useCallback } from "react";
-import { getAllUsernames } from "../../api/authApi";
 
 export default function ShareModal({
   isOpened,
   onClose,
   handleShare,
+  usernamesForShare,
   shareWithUsernames,
   setShareWithUsernames,
 }) {
-  const [usernames, setUsernames] = useState([]);
-
-  // Fetch All Usernames For Sharing
-  const fetchUsernames = useCallback(async () => {
-    try {
-      const users = await getAllUsernames();
-      const allUsernames = users.map((user) => user.username);
-      setUsernames(allUsernames);
-    } catch (error) {
-      console.error("Failed to fetch usernames", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchUsernames();
-  }, [fetchUsernames]);
-
   return (
     <>
       <Modal
@@ -44,7 +26,7 @@ export default function ShareModal({
             // label="Who do you want to share this task with?"
             aria-label="Who do you want to share this task with?"
             placeholder="Search usernames"
-            data={usernames}
+            data={usernamesForShare}
             value={shareWithUsernames}
             onChange={setShareWithUsernames}
             clearable

@@ -16,13 +16,15 @@ import toast from "react-hot-toast";
 import TaskItem from "./TaskItem";
 import TaskForm from "./TaskForm";
 import { IconExclamationCircle } from "@tabler/icons-react";
+import { getAllUsernames } from "../../api/authApi";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [usernamesForShare, setUsernamesForShare] = useState([]);
+  //
   // Fetch Tasks
   const fetchTasks = useCallback(async () => {
     try {
@@ -37,10 +39,22 @@ export default function TaskList() {
     }
   }, []);
 
+  // Fetch All Usernames For Sharing
+  const fetchUsernamesForShare = useCallback(async () => {
+    try {
+      const users = await getAllUsernames();
+      const allUsernames = users.map((user) => user.username);
+      setUsernamesForShare(allUsernames);
+    } catch (error) {
+      console.error("Failed to fetch usernames", error);
+    }
+  }, []);
+
   // Fetch Tasks in Initial Render
   useEffect(() => {
     fetchTasks();
-  }, [fetchTasks]);
+    fetchUsernamesForShare();
+  }, [fetchTasks, fetchUsernamesForShare]);
 
   // Handle Task Deletion
   const handleDelete = useCallback(
@@ -128,6 +142,7 @@ export default function TaskList() {
                 onDelete={handleDelete}
                 onEdit={handleEdit}
                 refetchTasks={fetchTasks}
+                usernamesForShare={usernamesForShare}
               />
             ))}
           </SimpleGrid>
