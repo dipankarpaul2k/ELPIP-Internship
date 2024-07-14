@@ -80,6 +80,11 @@ export default function TaskList() {
     [currentTask, fetchTasks]
   );
 
+  // Handle Task Editing
+  const handleCancelUpdate = useCallback(() => {
+    setCurrentTask(null);
+  }, []); // onCancelUpdate={handleCancelUpdate}
+
   if (loading) {
     return (
       <Box mih={"80vh"}>
@@ -107,6 +112,7 @@ export default function TaskList() {
         fetchTasks={fetchTasks}
         currentTask={currentTask}
         handleUpdate={handleUpdate}
+        handleCancelUpdate={handleCancelUpdate}
       />
       <Divider my="xs" />
       <Container p={0} size={1000}>
